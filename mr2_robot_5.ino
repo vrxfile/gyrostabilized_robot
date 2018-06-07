@@ -98,12 +98,12 @@ void loop()
         lastCommand = command;
         switch (command) {
           case 'F':
-            MPWRA = velocity;
-            MPWRB = velocity;
-            break;
-          case 'B':
             MPWRA = -velocity;
             MPWRB = -velocity;
+            break;
+          case 'B':
+            MPWRA = velocity;
+            MPWRB = velocity;
             break;
           case 'L':
             MPWRA = velocity;
@@ -118,20 +118,20 @@ void loop()
             MPWRB = 0;
             break;
           case 'I':
-            MPWRA = velocity / 2;
-            MPWRB = velocity;
+            MPWRA = -velocity;
+            MPWRB = -velocity / 2;
             break;
           case 'J':
-            MPWRA = -velocity / 2;
-            MPWRB = -velocity;
-            break;
-          case 'G':
             MPWRA = velocity;
             MPWRB = velocity / 2;
             break;
+          case 'G':
+            MPWRA = -velocity / 2;
+            MPWRB = -velocity;
+            break;
           case 'H':
-            MPWRA = -velocity;
-            MPWRB = -velocity / 2;
+            MPWRA = velocity / 2;
+            MPWRB = velocity;
             break;
           case 'D':
             MPWRA = 0;
@@ -159,7 +159,7 @@ void loop()
     if (imu.gyroAvailable()) {
       imu.readGyro();
     }
-    float gyr_z = (imu.calcGyro(imu.gz) - gyro_zero) / 10;
+    float gyr_z = (imu.calcGyro(imu.gz) - gyro_zero) / 5.0;
     Serial.println("GYR " + String(gyr_z, 2));
     if ((lastCommand == 'q') || (lastCommand == 'A') || (lastCommand == 'D')  || (lastCommand == 'S') ||
         (lastCommand == 'B') || (lastCommand == 'F')) {
